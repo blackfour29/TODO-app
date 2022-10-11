@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODO app</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="overlay hidden"></div>
+
+  <div class="container">
+    <header class="header">
+      <h1 class="header__title">What do you have <span class="significance">TODO</span>?</h1>
+      <button class="add-button"> + </button>
+    </header>
+
+
+    <div class="add-form-container hidden">
+      <div class="add-form__header">
+        <p class="add-form__title">Add a new...</p>
+        <i class="fa-solid fa-xmark add-form__close-button"></i>
+      </div>
+
+      <div class="add-form__main">
+        <aside class="add-form__sidebar">
+          <ul class="add-form__add-options"> 
+            <li class="add-form__add-todo-option add-form__selected-option">TODO</li>
+            <li class="add-form__add-group-option">Group</li>
+          </ul>
+        </aside>
+
+        <form action="" method="post" class="add-form__todo">
+          <div class="todo__data">
+            <div class="todo__data-inputs">
+              <input type="text" required name="todo title" class="add-form__todo-title" placeholder="Todo title">
+              <textarea class="add-form__todo-description" placeholder="Description" name="todo description"></textarea>
+            </div>
+
+            <div class="todo__date-and-priority">
+              <div class="todo__date">
+                <p class="todo__deadline">Deadline: </p>
+                <input type="date" name="todo__deadline" id="todo__date-input">
+              </div>
+              
+              <div class="todo__priority">
+                <p class="todo__priority-title">Priority: </p>
+                <label class="todo__priority-label">
+                  <input type="radio" name="gender" value="Male" class="todo__priority-input todo__priority-input-low" checked>
+                  <span class="todo__priority-level todo__priority-level-low">Low</span>
+                </label>
+                <label class="todo__priority-label">
+                  <input type="radio" name="gender" class="todo__priority-input todo_priority-input-medium" value="Female">
+                  <span class="todo__priority-level todo__priority-level-medium">Medium</span>
+                </label>
+                <label class="todo__priority-label">
+                  <input type="radio" name="gender" class="todo__priority-input todo_priority-input-high" value="Others">
+                  <span class="todo__priority-level todo__priority-level-high">High</span>
+                </label>
+
+                <input type="submit" value="Add todo" class="todo__add-todo-button">
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <form action="" method="post" class="add-form__group hidden">
+          <input type="text" required name="group name" class="group__name-input" placeholder="Group name">
+          <input type="submit" value="Create new group" class="group__create-group-button">
+        </form>
+
+      </div>
+
+        
+    </div>
+
+    <main class="main">
+      <aside class="sidebar">
+        <ul class="sidebar__time-options">
+          <li class="sidebar__time-option"> <button class="sidebar__btn sidebar__today-btn">Today</button> </li>
+          <li class="sidebar__time-option"><button class="sidebar__btn sidebar__this-week-btn">This week</button></li>
+          <li class="sidebar__time-option"><button class="sidebar__btn sidebar__this-month-btn">This month</button></li>
+          <li class="sidebar__time-option"><button class="sidebar__btn sidebar__all-btn">All</button></li>
+        </ul>
+        <h2 class="sidebar__important">Important</h2>
+        <section class="sidebar__groups">
+          <h1 class="groups__title">Your groups</h1>
+          <ul class="groups">
+            <li class="group">First Group</li>
+          </ul>
+        </section>
+
+      </aside>
+
+      <div class="todo-container">
+      
+      </div>
+
+    </main>
+
+
+  </div>
+
+  <script src="index.js"></script>
+</body>
+
+</html>
