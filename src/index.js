@@ -1,57 +1,36 @@
-const addBtn = document.querySelector('.add-button');
-const overlay = document.querySelector('.overlay');
-const addForm = document.querySelector('.add-form-container');
-const addFormCloseBtn = document.querySelector('.add-form__close-button');
-const addTodoOption = document.querySelector('.add-form__add-todo-option');
-const addGroupOption = document.querySelector('.add-form__add-group-option');
-const todoForm = document.querySelector('.add-form__todo');
-const groupFrom = document.querySelector('.add-form__group');
+import DOM from './dom.js';
 
+const dom = new DOM();
 
-addBtn.addEventListener('click', () => {
-  showElement(overlay, addForm);
-})
+const APP = ( () => {
+  let groups = {
+    'First Group': [],
+  };
 
-addFormCloseBtn.addEventListener('click', () => {
-  hideElement(overlay, addForm);
-})
+  function addGroup(groupName){
+    groups[groupName] = [];
+    // console.log(groups);
+  }
 
-addGroupOption.addEventListener('click', () => {
-  hideElement(todoForm);
-  showElement(groupFrom);
-  addTodoOption.classList.remove('add-form__selected-option');
-  addGroupOption.classList.add('add-form__selected-option');
-})
+  function getGroups(){
+    return groups;
+  }
 
-addTodoOption.addEventListener('click', () => {
-  showElement(todoForm);
-  hideElement(groupFrom);
-  addTodoOption.classList.add('add-form__selected-option');
-  addGroupOption.classList.remove('add-form__selected-option');
-})
+  function addTodoToGroup(todo, group){
+    console.log(group);
 
-todoForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  console.log("submitted");
-})
+    if(!groups[group]){
+      groups[group] = [];
+    }
+    groups[group].push(todo);
+    console.log(groups);
+  }
 
-groupFrom.addEventListener('submit', (event) => {
-  event.preventDefault();
-  console.log("submitted");
-})
+  return {addGroup, getGroups, addTodoToGroup}
+})();
+
+export default APP;
 
 
 
 
-
-function showElement(...elementsToDisplay){
-  elementsToDisplay.forEach(element => {
-    element.classList.remove('hidden');
-  })
-}
-
-function hideElement(...elementsToHide){
-  elementsToHide.forEach(element => {
-    element.classList.add('hidden');
-  })
-}

@@ -36,16 +36,16 @@
         <form action="" method="post" class="add-form__todo">
           <div class="todo__data">
             <div class="todo__data-inputs">
-              <input type="text" required name="todo title" class="add-form__todo-title" placeholder="Todo title">
-              <textarea class="add-form__todo-description" placeholder="Description" name="todo description"></textarea>
+              <input type="text" required name="todo title" class="todo__title-input" placeholder="Todo title" autocomplete="off">
+              <textarea class="todo__description-input" placeholder="Description" name="todo description"></textarea>
             </div>
 
             <div class="todo__date-and-priority">
               <div class="todo__date">
                 <p class="todo__deadline">Deadline: </p>
                 <input type="date" name="todo__deadline" id="todo__date-input">
-              </div>
-              
+             </div>
+
               <div class="todo__priority">
                 <p class="todo__priority-title">Priority: </p>
                 <label class="todo__priority-label">
@@ -61,9 +61,20 @@
                   <span class="todo__priority-level todo__priority-level-high">High</span>
                 </label>
 
-                <input type="submit" value="Add todo" class="todo__add-todo-button">
+              </div>
+
+              <div class="todo__group-selection">
+                <label for="todo__group-options" class="todo__group-options-label">Choose a group:</label>
+                <select name="todo group options" id="todo__group-options">
+                  <option value="First Group">First Group</option>
+                </select>
               </div>
             </div>
+
+            <input type="submit" value="Add todo" class="todo__add-todo-button">
+
+
+
           </div>
         </form>
 
@@ -96,15 +107,34 @@
       </aside>
 
       <div class="todo-container">
-      
+        <div class="todo">
+          <input type="checkbox" class="todo__checkbox">
+          <p class="todo__title">Do something with this piece of information</p>
+          <button class="todo__details-button">Details</button>
+          <p class="todo__date">Dec 12th</p>
+          <button class="todo__edit-button"><i class="fa-solid fa-pen-to-square"></i></button>
+          <button class="todo__delete-button"><i class="fa-solid fa-trash-can"></i></button>
+        </div>
+
+        <div class="todo">
+          <input type="checkbox" class="todo__checkbox">
+          <p class="todo__title">Do something with this piece of information</p>
+          <button class="todo__details-button">Details</button>
+          <p class="todo__date">Dec 12th</p>
+          <button class="todo__edit-button"><i class="fa-solid fa-pen-to-square"></i></button>
+          <button class="todo__delete-button"><i class="fa-solid fa-trash-can"></i></button>
+        </div>
+
       </div>
+
+   
 
     </main>
 
 
   </div>
 
-  <script src="index.js"></script>
+  <script type="module" src="index.js"></script>
 </body>
 
 </html>
