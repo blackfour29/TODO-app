@@ -14,11 +14,12 @@
 
   <div class="container">
     <header class="header">
-      <h1 class="header__title">What do you have <span class="significance">TODO</span>?</h1>
+      <h1 class="header__title">What do you want <span class="significance">TODO</span>?</h1>
       <button class="add-button"> + </button>
     </header>
 
 
+    <!-- Add form popup -->
     <div class="add-form-container hidden">
       <div class="add-form__header">
         <p class="add-form__title">Add a new...</p>
@@ -41,7 +42,7 @@
             </div>
 
             <div class="todo__date-and-priority">
-              <div class="todo__date">
+              <div class="todo__date-container">
                 <p class="todo__deadline">Deadline: </p>
                 <input type="date" name="todo__deadline" id="todo__date-input">
              </div>
@@ -49,15 +50,15 @@
               <div class="todo__priority">
                 <p class="todo__priority-title">Priority: </p>
                 <label class="todo__priority-label">
-                  <input type="radio" name="gender" value="Male" class="todo__priority-input todo__priority-input-low" checked>
+                  <input type="radio" name="priority" value="low" class="todo__priority-input todo__priority-input-low" checked>
                   <span class="todo__priority-level todo__priority-level-low">Low</span>
                 </label>
                 <label class="todo__priority-label">
-                  <input type="radio" name="gender" class="todo__priority-input todo_priority-input-medium" value="Female">
+                  <input type="radio" name="priority" class="todo__priority-input todo__priority-input-medium" value="medium">
                   <span class="todo__priority-level todo__priority-level-medium">Medium</span>
                 </label>
                 <label class="todo__priority-label">
-                  <input type="radio" name="gender" class="todo__priority-input todo_priority-input-high" value="Others">
+                  <input type="radio" name="priority" class="todo__priority-input todo_priority-input-high" value="high">
                   <span class="todo__priority-level todo__priority-level-high">High</span>
                 </label>
 
@@ -79,19 +80,49 @@
         </form>
 
         <form action="" method="post" class="add-form__group hidden">
-          <input type="text" required name="group name" class="group__name-input" placeholder="Group name">
+          <input type="text" required name="group name" class="group__name-input" placeholder="Group name" autocomplete="off"> 
           <input type="submit" value="Create new group" class="group__create-group-button">
         </form>
 
-      </div>
-
-        
+      </div>   
     </div>
+
+       <!-- edit todo popup -->
+       <div class="edit-todo-popup hidden">
+         <i class="fa-solid fa-xmark edit-popup__close-button"></i>
+         <input type="text"  name="edit todo title" class="edit-popup__title-input" placeholder="Todo title" autocomplete="off">
+         <textarea class="edit-popup__description-input" placeholder="Description" name="todo description"></textarea>
+
+         <div class="edit-popup__date-and-priority">
+            <div class="edit-popup__date-container">
+            <p class="edit-popup__deadline">Deadline: </p>
+            <input type="date" name="edit-popup__deadline" id="edit-popup__date-input">
+         </div>
+
+         <div class="edit-popup__priority">
+            <p class="edit-popup__priority-title">Priority: </p>
+            <label class="edit-popup__priority-label">
+              <input type="radio" name="edit-priority" value="low" class="edit-popup__priority-input edit-popup__priority-input-low">
+              <span class="edit-popup__priority-level edit-popup__priority-level-low">Low</span>
+            </label>
+            <label class="edit-popup__priority-label">
+              <input type="radio" name="edit-priority" class="edit-popup__priority-input edit-popup__priority-input-medium" value="medium">
+              <span class="edit-popup__priority-level edit-popup__priority-level-medium">Medium</span>
+            </label>
+            <label class="edit-popup__priority-label">
+              <input type="radio" name="edit-priority" class="edit-popup__priority-input todo_priority-input-high" value="high">
+              <span class="edit-popup__priority-level edit-popup__priority-level-high">High</span>
+            </label>
+         </div>
+
+        </div>
+
+      </div>
 
     <main class="main">
       <aside class="sidebar">
         <ul class="sidebar__time-options">
-          <li class="sidebar__time-option"> <button class="sidebar__btn sidebar__today-btn">Today</button> </li>
+          <li class="sidebar__time-option"><button class="sidebar__btn sidebar__today-btn">Today</button> </li>
           <li class="sidebar__time-option"><button class="sidebar__btn sidebar__this-week-btn">This week</button></li>
           <li class="sidebar__time-option"><button class="sidebar__btn sidebar__this-month-btn">This month</button></li>
           <li class="sidebar__time-option"><button class="sidebar__btn sidebar__all-btn">All</button></li>
@@ -112,8 +143,8 @@
           <p class="todo__title">Do something with this piece of information</p>
           <button class="todo__details-button">Details</button>
           <p class="todo__date">Dec 12th</p>
-          <button class="todo__edit-button"><i class="fa-solid fa-pen-to-square"></i></button>
-          <button class="todo__delete-button"><i class="fa-solid fa-trash-can"></i></button>
+          <i class="fa-solid fa-pen-to-square todo__edit-button"></i>
+          <i class="fa-solid fa-trash-can todo__delete-button"></i>
         </div>
 
         <div class="todo">
@@ -121,8 +152,9 @@
           <p class="todo__title">Do something with this piece of information</p>
           <button class="todo__details-button">Details</button>
           <p class="todo__date">Dec 12th</p>
-          <button class="todo__edit-button"><i class="fa-solid fa-pen-to-square"></i></button>
-          <button class="todo__delete-button"><i class="fa-solid fa-trash-can"></i></button>
+          <i class="fa-solid fa-pen-to-square todo__edit-button"></i>
+          <i class="fa-solid fa-trash-can todo__delete-button"></i>
+
         </div>
 
       </div>

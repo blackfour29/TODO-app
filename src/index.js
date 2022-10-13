@@ -3,13 +3,13 @@ import DOM from './dom.js';
 const dom = new DOM();
 
 const APP = ( () => {
+
   let groups = {
     'First Group': [],
   };
 
   function addGroup(groupName){
     groups[groupName] = [];
-    // console.log(groups);
   }
 
   function getGroups(){
@@ -17,7 +17,6 @@ const APP = ( () => {
   }
 
   function addTodoToGroup(todo, group){
-    console.log(group);
 
     if(!groups[group]){
       groups[group] = [];

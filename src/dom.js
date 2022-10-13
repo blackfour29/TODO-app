@@ -1,6 +1,6 @@
 import Todo from './todo.js';
 import APP from './index.js'; 
-
+import Utils from './utils.js';
 
 const overlay = document.querySelector('.overlay');
 const addForm = document.querySelector('.add-form-container');
@@ -15,12 +15,11 @@ const sidebarGroupEl = document.querySelector('.groups');
 const formGroupSelectEl = document.querySelector('#todo__group-options');
 
 class DOM {
-  
+
   constructor(){
-    console.log('y');
     addBtn.addEventListener('click', () => {
       DOM.showOverlay();
-      DOM.updateUserGroups();
+      DOM.updateFormGroupSelection();
       DOM.showAddForm();
     })
 
@@ -48,8 +47,8 @@ class DOM {
       const title = todoForm.querySelector('.todo__title-input').value;
       const description = todoForm.querySelector('.todo__description-input').value;
       let date = todoForm.querySelector('#todo__date-input').value;
-      
-      if(date === 'undefined'){  // need to check if the value of date is the string 'undefined', if it is show something else instead
+
+      if(!date){  // need to check if the value of date is the string 'undefined', if it is show something else instead
         date = 'Not set';
       }
       
@@ -64,12 +63,12 @@ class DOM {
       });
 
       priority = priority[priority.length - 1];
+      let uniqueId = Utils.generateUniqueId();
 
-      let todo = new Todo(title, description, date, priority, group);
+      let todo = new Todo(title, description, date, priority, group, uniqueId);
       DOM.renderTodo(todo);
       DOM.clearAddTodoForm();
       APP.addTodoToGroup(todo, todo.group);
-      console.log("submitted");
     })
 
 
@@ -86,6 +85,13 @@ class DOM {
       DOM.hideOverlay();
       DOM.hideAddForm();
       APP.addGroup(`${groupName}`);
+    })
+
+    todoContainer.addEventListener('click', (event) => {
+      console.log(event.target.classList);
+      if(event.target.classList.contains('todo__edit-button')){
+        console.log('edit!');
+      }
     })
 
   } // end of constructor here
@@ -143,17 +149,20 @@ class DOM {
     let todoHtml = document.createElement('div');
     todoHtml.classList.add('todo');
     todoHtml.classList.add(`todo__${todo.priority}-priority`);
+    todoHtml.classList.add(`${todo.id}`);
 
      todoHtml.innerHTML = `
       <input type="checkbox" class="todo__checkbox">
       <p class="todo__title">${todo.title}</p>
       <button class="todo__details-button">Details</button>
-      <p class="todo__date">${todo.deadline.format}</p>
+      <p class="todo__date">${todo.deadline}</p>
       <button class="todo__edit-button"><i class="fa-solid fa-pen-to-square"></i></button>
       <button class="todo__delete-button"><i class="fa-solid fa-trash-can"></i></button>
     `;
 
     todoContainer.prepend(todoHtml);
+
+    DOM.addEventsToTodo(todoHtml);
 
     DOM.hideOverlay();
     DOM.hideAddForm();
@@ -170,18 +179,29 @@ class DOM {
     document.querySelector('.group__name-input').value = '';
   }
 
-  static updateUserGroups(){
+  static updateFormGroupSelection(){
     const groupItems = document.querySelectorAll('.group');
     formGroupSelectEl.innerHTML = ''; 
-    console.log(groupItems.length);
       groupItems.forEach(group => {
       const groupEl = document.createElement('option');
       groupEl.value = group.textContent;
-      console.log(`Added ${group.textContent}`);
       groupEl.textContent = group.textContent;
       formGroupSelectEl.appendChild(groupEl);
     });
 
+  }
+
+  static addEventsToTodo(todoEl){
+    let cb = todoEl.querySelector('.todo__checkbox');
+    cb.addEventListener('change', () => {
+      const todo = cb.nextSibling.nextSibling; // get the title of the todo
+      if(cb.checked){
+        todo.classList.add('strikethrough');
+      }
+      else{
+        todo.classList.remove('strikethrough');
+      }
+    })
   }
   
 }
