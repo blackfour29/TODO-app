@@ -19,6 +19,13 @@ const editTitleInput = document.querySelector(".edit-popup__title-input");
 const editDescriptionInput = document.querySelector(
   ".edit-popup__description-input"
 );
+const todoPopup = document.querySelector(".todo-popup-container");
+const todoPopupCloseBtn = document.querySelector(".todo-popup__close-button");
+const todoPopupTitle = document.querySelector(".todo-popup__title");
+const todoPopupDescription = document.querySelector(".todo-popup__description");
+const todoPopupPriority = document.querySelector(".todo-popup__priority");
+const todoPopupDeadline = document.querySelector(".todo-popup__deadline");
+const todoPopupGroup = document.querySelector(".todo-popup__group");
 
 class DOM {
   constructor() {
@@ -174,12 +181,30 @@ class DOM {
         const htmlTodoId = event.target.closest(".todo").id;
         APP.removeTodo(htmlTodoId);
         DOM.removeTodoFromUi(htmlTodoId);
+      } else if (event.target.classList.contains("todo__details-button")) {
+        const htmlTodoId = event.target.closest(".todo").id;
+        const todoItem = APP.getTodo(htmlTodoId);
+        DOM.populateTodoPopup(todoItem);
+        DOM.showTodoPopup();
+      } else if (event.target.classList.contains("todo__checkbox")) {
+        const htmlTodo = event.target.closest(".todo");
+        const htmlTodoTitle = htmlTodo.querySelector(".todo__title");
+        const cb = event.target;
+        if (cb.checked) {
+          htmlTodoTitle.classList.add("strikethrough");
+        } else {
+          htmlTodoTitle.classList.remove("strikethrough");
+        }
       }
     });
 
     editFormCloseBtn.addEventListener("click", () => {
       editForm.classList.add("hidden");
       overlay.classList.add("hidden");
+    });
+
+    todoPopupCloseBtn.addEventListener("click", () => {
+      DOM.hideTodoPopup();
     });
   } // end of constructor here
 
@@ -249,8 +274,6 @@ class DOM {
 
     todoContainer.prepend(todoHtml);
 
-    DOM.addEventsToTodo(todoHtml);
-
     DOM.hideOverlay();
     DOM.hideAddForm();
   }
@@ -276,21 +299,19 @@ class DOM {
     });
   }
 
-  static addEventsToTodo(todoEl) {
-    let cb = todoEl.querySelector(".todo__checkbox");
-    cb.addEventListener("change", () => {
-      const todo = cb.nextSibling.nextSibling; // get the title of the todo
-      if (cb.checked) {
-        todo.classList.add("strikethrough");
-      } else {
-        todo.classList.remove("strikethrough");
-      }
-    });
-  }
-
   static showEditForm() {
     editForm.classList.remove("hidden");
     overlay.classList.remove("hidden");
+  }
+
+  static showTodoPopup() {
+    todoPopup.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+  }
+
+  static hideTodoPopup() {
+    todoPopup.classList.add("hidden");
+    overlay.classList.add("hidden");
   }
 
   static removeTodoFromUi(id) {
@@ -301,6 +322,14 @@ class DOM {
         break;
       }
     }
+  }
+
+  static populateTodoPopup(todoData) {
+    todoPopupTitle.textContent = todoData.title;
+    todoPopupDescription.textContent = todoData.description;
+    todoPopupPriority.textContent = todoData.priority;
+    todoPopupDeadline.textContent = todoData.deadline;
+    todoPopupGroup.textContent = todoData.group;
   }
 }
 

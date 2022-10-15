@@ -716,6 +716,78 @@ html{
 }
 
 
+/* todo popup */
+
+.todo-popup-container{
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -25%);
+  width: 600px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 2em 4em 2em 2em;
+  z-index: 50;
+}
+
+.todo-popup__close-button{
+  font-size: 2rem;
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.todo-popup__title{
+  font-weight: 400;
+  font-family: arial;
+  margin-bottom: 0.5em;
+}
+
+.todo-popup__description-container{
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.todo-popup__description{
+  font-size: 1.4rem;
+}
+
+.todo-popup__priority-container,
+.todo-popup__deadline-container,
+.todo-popup__group-container{
+  display: flex;
+}
+
+.todo-popup__priority-container{
+  margin-bottom: 1rem;
+}
+
+.todo-popup__deadline-container{
+  margin-bottom: 1rem;
+}
+
+
+.todo-popup__priority-label,
+.todo-popup__deadline-label,
+.todo-popup__group-label,
+.todo-popup__priority,
+.todo-popup__deadline,
+.todo-popup__group{
+  font-size: 1.4rem;
+}
+
+.todo-popup__priority-label,
+.todo-popup__deadline-label,
+.todo-popup__group-label{
+  width: 70px;
+}
+
+
+
+
 
 
 

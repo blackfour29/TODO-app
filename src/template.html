@@ -86,39 +86,58 @@
       </div>   
     </div>
 
-       <!-- edit todo popup -->
-       <form action="" method="post" class="edit-todo-popup hidden">
-         <i class="fa-solid fa-xmark edit-popup__close-button"></i>
-         <input type="text"  name="edit todo title" class="edit-popup__title-input" placeholder="Todo title" autocomplete="off">
-         <textarea class="edit-popup__description-input" placeholder="Description" name="todo description"></textarea>
+    <!-- edit todo popup -->
+    <form action="" method="post" class="edit-todo-popup hidden">
+      <i class="fa-solid fa-xmark edit-popup__close-button"></i>
+      <input type="text"  name="edit todo title" class="edit-popup__title-input" placeholder="Todo title" autocomplete="off">
+      <textarea class="edit-popup__description-input" placeholder="Description" name="todo description"></textarea>
 
-         <div class="edit-popup__date-and-priority">
-            <div class="edit-popup__date-container">
-              <p class="edit-popup__deadline">Deadline: </p>
-              <input type="date" name="edit-popup__deadline" id="edit-popup__date-input">
-            </div>
-         </div>
+      <div class="edit-popup__date-and-priority">
+        <div class="edit-popup__date-container">
+          <p class="edit-popup__deadline">Deadline: </p>
+          <input type="date" name="edit-popup__deadline" id="edit-popup__date-input">
+        </div>
+      </div>
 
-         <div class="edit-popup__priority">
-            <p class="edit-popup__priority-title">Priority: </p>
-            <label class="edit-popup__priority-label">
-              <input type="radio" name="edit-priority" value="low" class="edit-popup__priority-input edit-popup__priority-input-low">
-              <span class="edit-popup__priority-level edit-popup__priority-level-low">Low</span>
-            </label>
-            <label class="edit-popup__priority-label">
-              <input type="radio" name="edit-priority" class="edit-popup__priority-input edit-popup__priority-input-medium" value="medium">
-              <span class="edit-popup__priority-level edit-popup__priority-level-medium">Medium</span>
-            </label>
-            <label class="edit-popup__priority-label">
-              <input type="radio" name="edit-priority" class="edit-popup__priority-input edit-popup__priority-input-high" value="high">
-              <span class="edit-popup__priority-level edit-popup__priority-level-high">High</span>
-            </label>
-         </div>
-         
-         <input type="submit" value="Save changes" class="edit-popup__save-button">
-        </form>
+      <div class="edit-popup__priority">
+        <p class="edit-popup__priority-title">Priority: </p>
+        <label class="edit-popup__priority-label">
+          <input type="radio" name="edit-priority" value="low" class="edit-popup__priority-input edit-popup__priority-input-low">
+          <span class="edit-popup__priority-level edit-popup__priority-level-low">Low</span>
+        </label>
+        <label class="edit-popup__priority-label">
+          <input type="radio" name="edit-priority" class="edit-popup__priority-input edit-popup__priority-input-medium" value="medium">
+          <span class="edit-popup__priority-level edit-popup__priority-level-medium">Medium</span>
+        </label>
+        <label class="edit-popup__priority-label">
+          <input type="radio" name="edit-priority" class="edit-popup__priority-input edit-popup__priority-input-high" value="high">
+          <span class="edit-popup__priority-level edit-popup__priority-level-high">High</span>
+        </label>
+      </div>
+      
+      <input type="submit" value="Save changes" class="edit-popup__save-button">
+    </form>
 
-      <!-- </div> -->
+    <div class="todo-popup-container hidden">
+      <i class="fa-solid fa-xmark todo-popup__close-button"></i>
+      <h1 class="todo-popup__title">Just a small example for now</h1>
+      <div class="todo-popup__description-container">
+        <p class="todo-popup__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, eaque!</p>
+      </div>
+      <div class="todo-popup__priority-container">
+        <p class="todo-popup__priority-label">Priority: </p>
+        <p class="todo-popup__priority">Low</p>
+      </div>
+      <div class="todo-popup__deadline-container">
+        <p class="todo-popup__deadline-label">Deadline: </p>
+        <p class="todo-popup__deadline">2021-10-19</p>
+      </div>
+      <div class="todo-popup__group-container">
+        <p class="todo-popup__group-label">Group: </p>
+        <p class="todo-popup__group">First group </p>
+      </div>
+
+    </div>
 
     <main class="main">
       <aside class="sidebar">
