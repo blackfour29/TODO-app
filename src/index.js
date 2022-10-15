@@ -54,7 +54,10 @@ const APP = (() => {
         }
       }
     }
-    console.log(groups);
+  }
+
+  function getTodosFromGroup(group) {
+    return groups[group];
   }
 
   return {
@@ -64,6 +67,7 @@ const APP = (() => {
     updateTodo,
     getTodo,
     removeTodo,
+    getTodosFromGroup,
   };
 })();
 

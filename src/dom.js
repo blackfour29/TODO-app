@@ -3,6 +3,7 @@ import APP from "./index.js";
 import Utils from "./utils.js";
 
 const overlay = document.querySelector(".overlay");
+const sidebar = document.querySelector(".sidebar");
 const addForm = document.querySelector(".add-form-container");
 const groupForm = document.querySelector(".add-form__group");
 const addTodoOption = document.querySelector(".add-form__add-todo-option");
@@ -206,6 +207,16 @@ class DOM {
     todoPopupCloseBtn.addEventListener("click", () => {
       DOM.hideTodoPopup();
     });
+
+    sidebarGroupEl.addEventListener("click", (event) => {
+      if (event.target.classList.contains("group")) {
+        let group = event.target;
+        DOM.highlightSelectedSidebarOption(group);
+        let groupName = event.target.textContent;
+        let groupTodos = APP.getTodosFromGroup(groupName);
+        DOM.renderTodos(groupTodos);
+      }
+    });
   } // end of constructor here
 
   static showOverlay() {
@@ -330,6 +341,21 @@ class DOM {
     todoPopupPriority.textContent = todoData.priority;
     todoPopupDeadline.textContent = todoData.deadline;
     todoPopupGroup.textContent = todoData.group;
+  }
+
+  static renderTodos(todos) {
+    todoContainer.innerHTML = "";
+    todos.forEach((todo) => {
+      DOM.renderTodo(todo);
+    });
+  }
+
+  static highlightSelectedSidebarOption(element) {
+    const sidebarOptions = sidebar.querySelectorAll("li");
+    sidebarOptions.forEach((option) =>
+      option.classList.remove("sidebar-selected-option")
+    );
+    element.classList.add("sidebar-selected-option");
   }
 }
 

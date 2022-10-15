@@ -131,6 +131,11 @@ html{
 
 .group{
   font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.sidebar-selected-option{
+  color: var(--orange-red);
 }
 
 .add-button{
