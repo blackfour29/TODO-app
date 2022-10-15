@@ -60,6 +60,16 @@ const APP = (() => {
     return groups[group];
   }
 
+  function getAllTodos() {
+    const todos = [];
+    for (const [key, value] of Object.entries(groups)) {
+      for (const [index, element] of value.entries()) {
+        todos.push(element);
+      }
+    }
+    return todos;
+  }
+
   return {
     addGroup,
     getGroups,
@@ -68,6 +78,7 @@ const APP = (() => {
     getTodo,
     removeTodo,
     getTodosFromGroup,
+    getAllTodos,
   };
 })();
 

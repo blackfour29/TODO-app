@@ -17,9 +17,7 @@ const formGroupSelectEl = document.querySelector("#todo__group-options");
 const editForm = document.querySelector(".edit-todo-popup");
 const editFormCloseBtn = document.querySelector(".edit-popup__close-button");
 const editTitleInput = document.querySelector(".edit-popup__title-input");
-const editDescriptionInput = document.querySelector(
-  ".edit-popup__description-input"
-);
+const editDescriptionInput = document.querySelector(".edit-popup__description-input");
 const todoPopup = document.querySelector(".todo-popup-container");
 const todoPopupCloseBtn = document.querySelector(".todo-popup__close-button");
 const todoPopupTitle = document.querySelector(".todo-popup__title");
@@ -27,6 +25,7 @@ const todoPopupDescription = document.querySelector(".todo-popup__description");
 const todoPopupPriority = document.querySelector(".todo-popup__priority");
 const todoPopupDeadline = document.querySelector(".todo-popup__deadline");
 const todoPopupGroup = document.querySelector(".todo-popup__group");
+const sidebarTimeOptions = document.querySelectorAll(".sidebar__time-option");
 
 class DOM {
   constructor() {
@@ -58,9 +57,7 @@ class DOM {
     todoForm.addEventListener("submit", (event) => {
       event.preventDefault();
       const title = todoForm.querySelector(".todo__title-input").value;
-      const description = todoForm.querySelector(
-        ".todo__description-input"
-      ).value;
+      const description = todoForm.querySelector(".todo__description-input").value;
       let date = todoForm.querySelector("#todo__date-input").value;
 
       if (!date) {
@@ -71,9 +68,7 @@ class DOM {
       const group = todoForm.querySelector("#todo__group-options").value;
       let priority;
 
-      const priorityCheckboxes = document.querySelectorAll(
-        ".todo__priority-input"
-      );
+      const priorityCheckboxes = document.querySelectorAll(".todo__priority-input");
       priorityCheckboxes.forEach((checkbox) => {
         if (checkbox.checked) {
           priority = checkbox.classList[1].split("-"); // todo__priority-level-LOW / MEDIUM / HARD
@@ -115,21 +110,17 @@ class DOM {
       const todoTitle = editTitleInput.value;
       const todoDescription = editDescriptionInput.value;
 
-      let todoDeadline = editForm.querySelector(
-        "#edit-popup__date-input"
-      ).value;
+      let todoDeadline = editForm.querySelector("#edit-popup__date-input").value;
       if (!todoDeadline) {
         todoDeadline = "not set";
       }
 
       let todoPriority;
-      editForm
-        .querySelectorAll(".edit-popup__priority-input")
-        .forEach((option) => {
-          if (option.checked) {
-            todoPriority = option.value;
-          }
-        });
+      editForm.querySelectorAll(".edit-popup__priority-input").forEach((option) => {
+        if (option.checked) {
+          todoPriority = option.value;
+        }
+      });
 
       // console.log(todoTitle, todoDeadline, todoDescription, todoPriority);
       APP.updateTodo(formId, {
@@ -166,16 +157,13 @@ class DOM {
         const todoDeadline = todoObj.deadline;
 
         editForm.querySelector(".edit-popup__title-input").value = todoTitle;
-        editForm.querySelector(".edit-popup__description-input").value =
-          todoDescription;
+        editForm.querySelector(".edit-popup__description-input").value = todoDescription;
         editForm.querySelector("#edit-popup__date-input").value = todoDeadline;
-        editForm
-          .querySelectorAll(".edit-popup__priority-input")
-          .forEach((option) => {
-            if (option.value === todoPriority) {
-              option.checked = true;
-            }
-          });
+        editForm.querySelectorAll(".edit-popup__priority-input").forEach((option) => {
+          if (option.value === todoPriority) {
+            option.checked = true;
+          }
+        });
         editForm.setAttribute("id", htmlTodoId);
         DOM.showEditForm();
       } else if (event.target.classList.contains("todo__delete-button")) {
@@ -216,6 +204,68 @@ class DOM {
         let groupTodos = APP.getTodosFromGroup(groupName);
         DOM.renderTodos(groupTodos);
       }
+    });
+
+    sidebarTimeOptions.forEach((option) => {
+      option.addEventListener("click", (event) => {
+        const selectedOption = event.target.textContent;
+        const todos = APP.getAllTodos();
+        todoContainer.innerHTML = "";
+        const currentDate = new Date();
+
+        if (selectedOption === "Today") {
+          todos.forEach((todo) => {
+            const todoDeadlineDay = todo.deadline.split("-")[2];
+            const currentDay = currentDate.getDate().toString();
+            if (todoDeadlineDay === currentDay) {
+              DOM.renderTodo(todo);
+            }
+          });
+        } else if (selectedOption === "Next 7 days") {
+          const currentDayAsNumber = parseInt(currentDate.getDate());
+          const currentMonth = (currentDate.getMonth() + 1).toString(); // january is 0
+          const currentMonthAsNumber = parseInt(currentMonth);
+          const currentYearAsNumber = parseInt(currentDate.getFullYear());
+
+          todos.forEach((todo) => {
+            const todoDeadlineDayAsNumber = parseInt(todo.deadline.split("-")[2]);
+            const todoDeadlineMonth = todo.deadline.split("-")[1];
+            const todoDeadlineMonthAsNumber = parseInt(todoDeadlineMonth);
+
+            if (todoDeadlineMonth === currentMonth) {
+              if (todoDeadlineDayAsNumber - currentDayAsNumber <= 6) {
+                DOM.renderTodo(todo);
+              }
+            } else if (todoDeadlineMonthAsNumber - currentMonthAsNumber == 1) {
+              const currentMonthDays = Utils.getCurrentMonthDays(currentMonthAsNumber, currentYearAsNumber);
+              const daysDifference = currentMonthDays - currentDayAsNumber + todoDeadlineDayAsNumber;
+              if (daysDifference <= 6) {
+                DOM.renderTodo(todo);
+              }
+            }
+          });
+        } else if (selectedOption === "Current month") {
+          const currentMonth = (currentDate.getMonth() + 1).toString(); // january is 0
+          todos.forEach((todo) => {
+            const todoDeadlineMonth = todo.deadline.split("-")[1];
+            if (todoDeadlineMonth === currentMonth) {
+              DOM.renderTodo(todo);
+            }
+          });
+        } else if (selectedOption === "Current month") {
+          const currentMonth = (currentDate.getMonth() + 1).toString(); // january is 0
+          todos.forEach((todo) => {
+            const todoDeadlineMonth = todo.deadline.split("-")[1];
+            if (todoDeadlineMonth === currentMonth) {
+              DOM.renderTodo(todo);
+            }
+          });
+        } else if (selectedOption === "All") {
+          todos.forEach((todo) => {
+            DOM.renderTodo(todo);
+          });
+        }
+      });
     });
   } // end of constructor here
 
@@ -352,9 +402,7 @@ class DOM {
 
   static highlightSelectedSidebarOption(element) {
     const sidebarOptions = sidebar.querySelectorAll("li");
-    sidebarOptions.forEach((option) =>
-      option.classList.remove("sidebar-selected-option")
-    );
+    sidebarOptions.forEach((option) => option.classList.remove("sidebar-selected-option"));
     element.classList.add("sidebar-selected-option");
   }
 }

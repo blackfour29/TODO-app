@@ -63,11 +63,7 @@ html{
 }
 
 .sidebar__time-option{
-  width: 100%;
   text-align: center;
-}
-
-.sidebar__btn{
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -77,15 +73,16 @@ html{
   font-size: 1.6rem;
 }
 
-.sidebar__btn:hover{
+
+.sidebar__time-option:hover{
   color: var(--green-sheen);
   color: var(--mango-tango);
 }
-
+/* 
 .sidebar__important{
   color: var(--mango-tango);
   text-align: center;
-}
+} */
 
 .sidebar__important:hover{
   color: var(--orange-red);
