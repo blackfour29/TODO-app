@@ -83,20 +83,20 @@
           <input type="text" required name="group name" class="group__name-input" placeholder="Group name" autocomplete="off"> 
           <input type="submit" value="Create new group" class="group__create-group-button">
         </form>
-
       </div>   
     </div>
 
        <!-- edit todo popup -->
-       <div class="edit-todo-popup hidden">
+       <form action="" method="post" class="edit-todo-popup hidden">
          <i class="fa-solid fa-xmark edit-popup__close-button"></i>
          <input type="text"  name="edit todo title" class="edit-popup__title-input" placeholder="Todo title" autocomplete="off">
          <textarea class="edit-popup__description-input" placeholder="Description" name="todo description"></textarea>
 
          <div class="edit-popup__date-and-priority">
             <div class="edit-popup__date-container">
-            <p class="edit-popup__deadline">Deadline: </p>
-            <input type="date" name="edit-popup__deadline" id="edit-popup__date-input">
+              <p class="edit-popup__deadline">Deadline: </p>
+              <input type="date" name="edit-popup__deadline" id="edit-popup__date-input">
+            </div>
          </div>
 
          <div class="edit-popup__priority">
@@ -110,14 +110,15 @@
               <span class="edit-popup__priority-level edit-popup__priority-level-medium">Medium</span>
             </label>
             <label class="edit-popup__priority-label">
-              <input type="radio" name="edit-priority" class="edit-popup__priority-input todo_priority-input-high" value="high">
+              <input type="radio" name="edit-priority" class="edit-popup__priority-input edit-popup__priority-input-high" value="high">
               <span class="edit-popup__priority-level edit-popup__priority-level-high">High</span>
             </label>
          </div>
+         
+         <input type="submit" value="Save changes" class="edit-popup__save-button">
+        </form>
 
-        </div>
-
-      </div>
+      <!-- </div> -->
 
     <main class="main">
       <aside class="sidebar">
