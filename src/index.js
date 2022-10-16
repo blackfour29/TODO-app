@@ -1,18 +1,24 @@
-import DOM from "./dom.js";
+import DOM from './dom.js';
+import Storage from './storage.js';
 
 const dom = new DOM();
 
 const APP = (() => {
   let groups = {
-    "First Group": [],
+    'First Group': [],
   };
 
   function addGroup(groupName) {
     groups[groupName] = [];
+    Storage.updateLocalStorage(groups);
   }
 
-  function getGroups() {
-    return groups;
+  function getGroupNames() {
+    const groupNames = [];
+    for (const [key, value] of Object.entries(groups)) {
+      groupNames.push(key);
+    }
+    return groupNames;
   }
 
   function addTodoToGroup(todo, group) {
@@ -20,7 +26,7 @@ const APP = (() => {
       groups[group] = [];
     }
     groups[group].push(todo);
-    // console.log(groups);
+    Storage.updateLocalStorage(groups);
   }
 
   function updateTodo(id, newData) {
@@ -34,6 +40,7 @@ const APP = (() => {
         }
       }
     }
+    Storage.updateLocalStorage(groups);
   }
 
   function getTodo(id) {
@@ -54,6 +61,7 @@ const APP = (() => {
         }
       }
     }
+    Storage.updateLocalStorage(groups);
   }
 
   function getTodosFromGroup(group) {
@@ -70,15 +78,25 @@ const APP = (() => {
     return todos;
   }
 
+  function updateGroups(data) {
+    groups = data;
+  }
+
+  function setGroups(value) {
+    groups = value;
+  }
+
   return {
     addGroup,
-    getGroups,
+    getGroupNames,
     addTodoToGroup,
     updateTodo,
     getTodo,
     removeTodo,
     getTodosFromGroup,
     getAllTodos,
+    updateGroups,
+    setGroups,
   };
 })();
 

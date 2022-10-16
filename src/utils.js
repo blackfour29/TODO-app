@@ -10,7 +10,10 @@ const Utils = (() => {
     return id;
   }
 
-  function getCurrentMonthDays(monthNumber, year) {
+  function getCurrentMonthDays(monthNumber) {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+
     if (monthsWith31Days.includes(monthNumber)) {
       return 31;
     } else if (monthsWith30Days.includes(monthNumber)) {

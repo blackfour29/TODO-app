@@ -73,16 +73,10 @@ html{
   font-size: 1.6rem;
 }
 
-
 .sidebar__time-option:hover{
   color: var(--green-sheen);
   color: var(--mango-tango);
 }
-/* 
-.sidebar__important{
-  color: var(--mango-tango);
-  text-align: center;
-} */
 
 .sidebar__important:hover{
   color: var(--orange-red);
@@ -304,7 +298,6 @@ html{
 }
 
 #todo__group-options{
-  /* border: none; */
   outline: none;
   padding: 0.25rem 0.5rem;
   border-radius: 5px;
@@ -401,8 +394,6 @@ html{
   min-width: 70px;
   padding: 5px;
   box-sizing: content-box;
-  /* margin-left: 100%;
-  transform: translateX(-100%); */
   cursor: pointer;
   position: absolute;
   right: 10px;
@@ -413,7 +404,6 @@ html{
   background-color: var(--dark-slate-gray);
   color: #fff;
 }
-
 
 .overlay{
   position: fixed;
@@ -494,7 +484,6 @@ html{
   border-left: 4px solid red;
 }
 
-
 .todo__checkbox{
   margin-right: 1rem;
   width: 15px;
@@ -553,9 +542,6 @@ html{
   font-size: 1.6rem;
   cursor: pointer;
 }
-
-
-
 
 /* edit todo popup */
 
@@ -716,7 +702,6 @@ html{
   background-color: var(--dark-slate-gray);
   color: #fff;
 }
-
 
 /* todo popup */
 
