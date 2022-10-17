@@ -40,8 +40,6 @@ const editFormDescriptionInput = document.querySelector('.edit-popup__descriptio
 const groupFormRemainingCharacters = document.querySelector('.group__remaining-characters-value');
 
 class DOM {
-  overlay = document.querySelector('.overlay');
-  randomValue = 5;
   constructor() {
     addBtn.addEventListener('click', () => {
       DOM.showElement(overlay, addForm);
@@ -90,9 +88,9 @@ class DOM {
       });
 
       priority = priority[priority.length - 1]; // LOW / MEDIUM / HARD
-      let uniqueId = Utils.generateUniqueId();
+      const uniqueId = Utils.generateUniqueId();
 
-      let todo = new Todo(title, description, date, priority, group, uniqueId, checkedStatus);
+      const todo = new Todo(title, description, date, priority, group, uniqueId, checkedStatus);
       DOM.renderTodo(todo);
       DOM.clearAddTodoForm();
       APP.addTodoToGroup(todo, todo.group);
@@ -155,7 +153,7 @@ class DOM {
     todoContainer.addEventListener('click', (event) => {
       if (event.target.classList.contains('todo__edit-button')) {
         const htmlTodoId = event.target.closest('.todo').id; // i could declare this in the outer scope, but that will flood the console with errors if the user clicks anywhere in the container so i have to rewrite it in each if scope
-        let todoObj = APP.getTodo(htmlTodoId);
+        const todoObj = APP.getTodo(htmlTodoId);
 
         const todoTitle = todoObj.title;
         const todoDescription = todoObj.description;
@@ -204,10 +202,10 @@ class DOM {
 
     sidebarGroupEl.addEventListener('click', (event) => {
       if (event.target.classList.contains('group')) {
-        let group = event.target;
+        const group = event.target;
         DOM.highlightSelectedSidebarOption(group);
-        let groupName = event.target.textContent.trim();
-        let groupTodos = APP.getTodosFromGroup(groupName);
+        const groupName = event.target.textContent.trim();
+        const groupTodos = APP.getTodosFromGroup(groupName);
         DOM.renderTodos(groupTodos);
       } else if (event.target.classList.contains('group__delete-button')) {
         event.stopPropagation();
@@ -282,7 +280,7 @@ class DOM {
         APP.updateGroups(storedData);
         const storedGroups = APP.getGroupNames();
         storedGroups.forEach((group) => {
-          if (group !== 'First Group') {
+          if (group !== 'Main') {
             // the 'First Group' is created automatically and is the default group.
             DOM.renderGroup(group);
           }
@@ -293,7 +291,7 @@ class DOM {
         });
       } else {
         let groups = {
-          'First Group': [],
+          Main: [],
         };
         APP.setGroups(groups);
       }
@@ -440,7 +438,7 @@ class DOM {
   }
 
   static removeTodosFromGroup(groupName) {
-    location.reload();
+    location.reload(); // simplest way to clear UI of todo's from a certain group
   }
 }
 
