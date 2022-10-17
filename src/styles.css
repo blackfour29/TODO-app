@@ -136,6 +136,7 @@ body{
 
 .group__delete-button{
   margin-left: 1rem;
+  padding: 5px;
 }
 
 .sidebar-selected-option{
@@ -516,7 +517,7 @@ body{
   margin-right: auto;
   max-height: 60px;
   overflow-y: scroll;
-  min-width: 100px;
+  min-width: 200px;
 }
 
 .strikethrough{
@@ -792,31 +793,6 @@ body{
 .todo-popup__group-label{
   width: 70px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 .hidden{
