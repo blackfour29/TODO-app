@@ -25,7 +25,12 @@ const Utils = (() => {
     }
   }
 
-  return { generateUniqueId, getCurrentMonthDays };
+  function removeExtraWhitespace(groupName) {
+    let formattedName = groupName.replace(/\s+/g, ' ').trim();
+    return formattedName;
+  }
+
+  return { generateUniqueId, getCurrentMonthDays, removeExtraWhitespace };
 })();
 
 export default Utils;

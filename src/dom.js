@@ -37,6 +37,7 @@ const editFormDateInput = document.querySelector('#edit-popup__date-input');
 const editFormPriorityCheckboxes = document.querySelectorAll('.edit-popup__priority-input');
 const editFormTitleInput = document.querySelector('.edit-popup__title-input');
 const editFormDescriptionInput = document.querySelector('.edit-popup__description-input');
+const groupFormRemainingCharacters = document.querySelector('.group__remaining-characters-value');
 
 class DOM {
   constructor() {
@@ -44,6 +45,7 @@ class DOM {
       DOM.showOverlay();
       DOM.updateFormGroupSelection();
       DOM.showAddForm();
+      DOM.resetGroupCharacterLimit(50);
     });
 
     addFormCloseBtn.addEventListener('click', () => {
@@ -69,6 +71,7 @@ class DOM {
       event.preventDefault();
       const title = todoFormTitleInput.value;
       const description = todoFormDescriptionInput.value;
+      const checkedStatus = false; // this is the default value and it is needed when creating the todo object
       let date = todoFormDateInput.value;
 
       if (!date) {
@@ -76,7 +79,8 @@ class DOM {
         date = 'Not set';
       }
 
-      const group = todoFormGroupOption.value;
+      let group = todoFormGroupOption.value;
+      group = group.trim();
 
       let priority;
       todoFormPriorityCheckboxes.forEach((checkbox) => {
@@ -88,7 +92,7 @@ class DOM {
       priority = priority[priority.length - 1]; // LOW / MEDIUM / HARD
       let uniqueId = Utils.generateUniqueId();
 
-      let todo = new Todo(title, description, date, priority, group, uniqueId);
+      let todo = new Todo(title, description, date, priority, group, uniqueId, checkedStatus);
       DOM.renderTodo(todo);
       DOM.clearAddTodoForm();
       APP.addTodoToGroup(todo, todo.group);
@@ -96,12 +100,13 @@ class DOM {
 
     groupForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      const groupName = groupFormGroupNameInput.value;
+      let groupName = groupFormGroupNameInput.value.slice(0, 50);
+      groupName = Utils.removeExtraWhitespace(groupName);
       DOM.renderGroup(groupName);
       DOM.clearAddGroupForm();
       DOM.hideOverlay();
       DOM.hideAddForm();
-      APP.addGroup(`${groupName}`);
+      APP.addGroup(groupName);
     });
 
     editForm.addEventListener('submit', (event) => {
@@ -181,6 +186,7 @@ class DOM {
         DOM.showTodoPopup();
       } else if (event.target.classList.contains('todo__checkbox')) {
         const htmlTodo = event.target.closest('.todo');
+        const htmlTodoId = htmlTodo.id;
         const htmlTodoTitle = htmlTodo.querySelector('.todo__title');
         const checkbox = event.target;
         if (checkbox.checked) {
@@ -188,6 +194,7 @@ class DOM {
         } else {
           htmlTodoTitle.classList.remove('strikethrough');
         }
+        APP.updateTodo(htmlTodoId, { checked: checkbox.checked });
       }
     });
 
@@ -205,15 +212,25 @@ class DOM {
       if (event.target.classList.contains('group')) {
         let group = event.target;
         DOM.highlightSelectedSidebarOption(group);
-        let groupName = event.target.textContent;
+        let groupName = event.target.textContent.trim();
         let groupTodos = APP.getTodosFromGroup(groupName);
         DOM.renderTodos(groupTodos);
+      } else if (event.target.classList.contains('group__delete-button')) {
+        event.stopPropagation();
+        const group = event.target.parentElement;
+        const groupName = group.textContent.trim();
+        DOM.removeGroupFromUi(group);
+        APP.deleteGroup(groupName);
+        DOM.removeTodosFromGroup(groupName);
       }
     });
 
     sidebarTimeOptions.forEach((option) => {
       option.addEventListener('click', (event) => {
         const selectedOption = event.target.textContent; // Today / Next 7 days / Current Month / All
+
+        const selectedOptionHtml = event.target;
+        DOM.highlightSelectedSidebarOption(selectedOptionHtml);
         const todos = APP.getAllTodos();
         todoContainer.innerHTML = '';
         const currentDate = new Date();
@@ -285,6 +302,14 @@ class DOM {
           'First Group': [],
         };
         APP.setGroups(groups);
+      }
+    });
+
+    groupFormGroupNameInput.addEventListener('input', () => {
+      const inputLength = groupFormGroupNameInput.value.length;
+      const charactersDifference = 50 - inputLength;
+      if (charactersDifference >= 0) {
+        groupFormRemainingCharacters.textContent = charactersDifference;
       }
     });
   } // end of constructor here
@@ -360,8 +385,8 @@ class DOM {
     todoHtml.setAttribute('id', `${todo.id}`);
 
     todoHtml.innerHTML = `
-      <input type="checkbox" class="todo__checkbox">
-      <p class="todo__title">${todo.title}</p>
+      <input type="checkbox" class="todo__checkbox" ${todo.checked ? 'checked' : ''}>
+      <p class="todo__title ${todo.checked ? 'strikethrough' : ''}">${todo.title}</p>
       <button class="todo__details-button">Details</button>
       <p class="todo__date">${todo.deadline}</p>
       <i class="fa-solid fa-pen-to-square todo__edit-button"></i>
@@ -377,7 +402,8 @@ class DOM {
   static renderGroup(groupName) {
     const groupItemHtml = document.createElement('li');
     groupItemHtml.classList.add('group');
-    groupItemHtml.textContent = `${groupName}`;
+    groupName = groupName.trim();
+    groupItemHtml.innerHTML = `${groupName} <i class="fa-solid fa-trash-can group__delete-button"></i>`;
     sidebarGroupEl.appendChild(groupItemHtml);
   }
 
@@ -435,6 +461,9 @@ class DOM {
 
   static renderTodos(todos) {
     todoContainer.innerHTML = '';
+    if (!todos) {
+      return;
+    }
     todos.forEach((todo) => {
       DOM.renderTodo(todo);
     });
@@ -444,6 +473,18 @@ class DOM {
     const sidebarOptions = sidebar.querySelectorAll('li');
     sidebarOptions.forEach((option) => option.classList.remove('sidebar-selected-option'));
     element.classList.add('sidebar-selected-option');
+  }
+
+  static removeGroupFromUi(el) {
+    el.remove();
+  }
+
+  static resetGroupCharacterLimit(value) {
+    groupFormRemainingCharacters.textContent = value;
+  }
+
+  static removeTodosFromGroup(groupName) {
+    location.reload();
   }
 }
 

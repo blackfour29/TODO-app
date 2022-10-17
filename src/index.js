@@ -1,14 +1,19 @@
 import DOM from './dom.js';
 import Storage from './storage.js';
 
-const dom = new DOM();
-
 const APP = (() => {
   let groups = {
     'First Group': [],
   };
 
+  function getGroups() {
+    // just for testing purposes
+    return groups;
+  }
+
   function addGroup(groupName) {
+    groupName = groupName.trim();
+    // groups[`"${groupName}"`] = [];
     groups[groupName] = [];
     Storage.updateLocalStorage(groups);
   }
@@ -22,9 +27,10 @@ const APP = (() => {
   }
 
   function addTodoToGroup(todo, group) {
-    if (!groups[group]) {
-      groups[group] = [];
-    }
+    // group = `"${group.trim()}"`;
+    // if (!groups[group]) {
+    //   groups[group] = [];
+    // }
     groups[group].push(todo);
     Storage.updateLocalStorage(groups);
   }
@@ -33,10 +39,11 @@ const APP = (() => {
     for (const [key, value] of Object.entries(groups)) {
       for (const [index, element] of value.entries()) {
         if (element.id == id) {
-          element.title = newData.title;
-          element.description = newData.description;
-          element.deadline = newData.deadline;
-          element.priority = newData.priority;
+          element.title = newData.title || element.title;
+          element.description = newData.description || element.description;
+          element.deadline = newData.deadline || element.deadline;
+          element.priority = newData.priority || element.priority;
+          element.checked = newData.checked;
         }
       }
     }
@@ -86,6 +93,12 @@ const APP = (() => {
     groups = value;
   }
 
+  function deleteGroup(groupName) {
+    groupName = groupName.trim();
+    delete groups[groupName];
+    Storage.updateLocalStorage(groups);
+  }
+
   return {
     addGroup,
     getGroupNames,
@@ -97,7 +110,11 @@ const APP = (() => {
     getAllTodos,
     updateGroups,
     setGroups,
+    deleteGroup,
+    getGroups,
   };
 })();
 
 export default APP;
+
+const dom = new DOM();

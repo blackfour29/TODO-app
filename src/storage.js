@@ -2,7 +2,6 @@ const Storage = (() => {
   function updateLocalStorage(data) {
     localStorage.removeItem('groups');
     localStorage.setItem('groups', JSON.stringify(data));
-    console.log('updated');
   }
 
   function getStoredData() {

@@ -81,6 +81,7 @@
 
         <form action="" method="post" class="add-form__group hidden">
           <input type="text" required name="group name" class="group__name-input" placeholder="Group name" autocomplete="off"> 
+          <p class="group__remaining-characters">Remaining characters: <span class="group__remaining-characters-value">50</span> </p>
           <input type="submit" value="Create new group" class="group__create-group-button">
         </form>
       </div>   
@@ -120,9 +121,9 @@
 
     <div class="todo-popup-container hidden">
       <i class="fa-solid fa-xmark todo-popup__close-button"></i>
-      <h1 class="todo-popup__title">Just a small example for now</h1>
+      <h1 class="todo-popup__title"></h1> <!--Content will be added from JS -->
       <div class="todo-popup__description-container">
-        <p class="todo-popup__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, eaque!</p>
+        <p class="todo-popup__description"></p> <!--Content will be added from JS -->
       </div>
       <div class="todo-popup__priority-container">
         <p class="todo-popup__priority-label">Priority: </p>
@@ -130,11 +131,11 @@
       </div>
       <div class="todo-popup__deadline-container">
         <p class="todo-popup__deadline-label">Deadline: </p>
-        <p class="todo-popup__deadline">2021-10-19</p>
+        <p class="todo-popup__deadline"></p> <!--Content will be added from JS -->
       </div>
       <div class="todo-popup__group-container">
         <p class="todo-popup__group-label">Group: </p>
-        <p class="todo-popup__group">First group </p>
+        <p class="todo-popup__group"></p> <!--Content will be added from JS -->
       </div>
 
     </div>
@@ -150,7 +151,8 @@
         <section class="sidebar__groups">
           <h1 class="groups__title">Your groups</h1>
           <ul class="groups">
-            <li class="group">First Group</li>
+            <li class="group">First Group </i>
+            </li>
           </ul>
         </section>
 

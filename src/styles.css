@@ -123,6 +123,11 @@ html{
 .group{
   font-size: 1.6rem;
   cursor: pointer;
+  word-break: break-all;
+}
+
+.group__delete-button{
+  margin-left: 1rem;
 }
 
 .sidebar-selected-option{
@@ -299,7 +304,7 @@ html{
 
 #todo__group-options{
   outline: none;
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem;
   border-radius: 5px;
 }
 
@@ -435,6 +440,10 @@ html{
 
 .group__name-input:focus{
   outline: none;
+}
+
+.group__remaining-characters{
+  font-size: 1.6rem;
 }
 
 .group__create-group-button{
