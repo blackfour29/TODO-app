@@ -5,14 +5,20 @@
 
 :root{
 --dark-slate-gray: #1a5e63ff;
---green-sheen: #64b6acff;
+--green-sheen: rgba(100, 182, 172, 0.866);
 --aero-blue: #daffefff;
 --mango-tango: #ff8c42ff;
 --orange-red: #ff661fff;
+--serif-font: 'Merriweather', serif;
+--sans-serif-font: 'Roboto', sans-serif;
 }
 
 html{
   font-size: 62.5%;
+}
+
+body{
+  font-family: var(--sans-serif-font);
 }
 
 .header{
@@ -26,6 +32,7 @@ html{
   gap: 2rem;
   box-sizing: border-box;
   padding: 2rem 0;
+  font-family: var(--serif-font);
 }
 
 .significance{
@@ -44,6 +51,7 @@ html{
 }
 
 .sidebar{
+  font-family: var(--serif-font);
   color: #fff;
   background-color: var(--dark-slate-gray);
   box-sizing: border-box;
@@ -58,7 +66,7 @@ html{
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  font-size: 2rem;
+  font-size: 1.6rem;
   margin-bottom: 2rem;
 }
 
@@ -70,7 +78,6 @@ html{
   color: #fff;
   width: 80%;
   max-width: 150px;
-  font-size: 1.6rem;
 }
 
 .sidebar__time-option:hover{
@@ -106,7 +113,8 @@ html{
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  max-height: 130px;
+  /* max-height: 130px; */
+  max-height: calc( 50vh - 125px); /* played a bit with this and this option seems to work best*/
   overflow-Y: scroll;
 }
 
@@ -121,7 +129,7 @@ html{
 }
 
 .group{
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   cursor: pointer;
   word-break: break-all;
 }
@@ -201,6 +209,7 @@ html{
 
 .add-form__add-todo-option,
 .add-form__add-group-option{
+  font-family: var(--serif-font);
   font-size: 2rem;
   text-align: center;
   cursor: pointer;
@@ -226,9 +235,9 @@ html{
   min-height: 100px;
   line-height: 1.4;
   border: none;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   width: 100%;
-  font-family: arial; /* added for now just to match the font from the previous input*/
+  font-family: var(--serif-font);
 }
 
 .todo__description-input:focus,
@@ -429,6 +438,7 @@ html{
 }
 
 .group__name-input{
+  font-family: var(--sans-serif-font);
   box-sizing: border-box;
   padding: 0.4rem;
   border: none;
@@ -506,6 +516,7 @@ html{
   margin-right: auto;
   max-height: 60px;
   overflow-y: scroll;
+  min-width: 100px;
 }
 
 .strikethrough{
@@ -577,10 +588,11 @@ html{
 }
 
 .edit-popup__title-input{
+  font-family: var(--serif-font);
+  font-size: 1.4rem;
   border: none;
   outline: none;
   margin-bottom: 10px;
-  font-size: 1.4rem;
   border-bottom: 2px solid rgb(70, 70, 70);
 }
 

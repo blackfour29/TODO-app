@@ -40,29 +40,29 @@ const editFormDescriptionInput = document.querySelector('.edit-popup__descriptio
 const groupFormRemainingCharacters = document.querySelector('.group__remaining-characters-value');
 
 class DOM {
+  overlay = document.querySelector('.overlay');
+  randomValue = 5;
   constructor() {
     addBtn.addEventListener('click', () => {
-      DOM.showOverlay();
+      DOM.showElement(overlay, addForm);
       DOM.updateFormGroupSelection();
-      DOM.showAddForm();
       DOM.resetGroupCharacterLimit(50);
     });
 
     addFormCloseBtn.addEventListener('click', () => {
-      DOM.hideOverlay();
-      DOM.hideAddForm();
+      DOM.hideElement(overlay, addForm);
     });
 
     addGroupOption.addEventListener('click', () => {
-      DOM.hideTodoForm();
-      DOM.showGroupForm();
+      DOM.hideElement(todoForm);
+      DOM.showElement(groupForm);
       DOM.clearAddTodoOption();
       DOM.markAddGroupOptionSelected();
     });
 
     addTodoOption.addEventListener('click', () => {
-      DOM.showTodoForm();
-      DOM.hideGroupForm();
+      DOM.showElement(todoForm);
+      DOM.hideElement(groupForm);
       DOM.markAddTodoOptionSelected();
       DOM.clearAddGroupOption();
     });
@@ -104,8 +104,7 @@ class DOM {
       groupName = Utils.removeExtraWhitespace(groupName);
       DOM.renderGroup(groupName);
       DOM.clearAddGroupForm();
-      DOM.hideOverlay();
-      DOM.hideAddForm();
+      DOM.hideElement(overlay, addForm);
       APP.addGroup(groupName);
     });
 
@@ -150,8 +149,7 @@ class DOM {
           todo.classList.add(`todo__${todoPriority}-priority`);
         }
       });
-      DOM.hideOverlay();
-      DOM.hideEditForm();
+      DOM.hideElement(overlay, editForm);
     });
 
     todoContainer.addEventListener('click', (event) => {
@@ -172,8 +170,7 @@ class DOM {
           id: htmlTodoId,
         });
 
-        DOM.showOverlay();
-        DOM.showEditForm();
+        DOM.showElement(overlay, editForm);
       } else if (event.target.classList.contains('todo__delete-button')) {
         const htmlTodoId = event.target.closest('.todo').id;
         APP.removeTodo(htmlTodoId);
@@ -182,8 +179,7 @@ class DOM {
         const htmlTodoId = event.target.closest('.todo').id;
         const todoItem = APP.getTodo(htmlTodoId);
         DOM.populateTodoPopup(todoItem);
-        DOM.showOverlay();
-        DOM.showTodoPopup();
+        DOM.showElement(overlay, todoPopup);
       } else if (event.target.classList.contains('todo__checkbox')) {
         const htmlTodo = event.target.closest('.todo');
         const htmlTodoId = htmlTodo.id;
@@ -199,13 +195,11 @@ class DOM {
     });
 
     editFormCloseBtn.addEventListener('click', () => {
-      DOM.hideOverlay();
-      DOM.hideEditForm();
+      DOM.hideElement(overlay, editForm);
     });
 
     todoPopupCloseBtn.addEventListener('click', () => {
-      DOM.hideOverlay();
-      DOM.hideTodoPopup();
+      DOM.hideElement(overlay, todoPopup);
     });
 
     sidebarGroupEl.addEventListener('click', (event) => {
@@ -314,52 +308,16 @@ class DOM {
     });
   } // end of constructor here
 
-  static showOverlay() {
-    overlay.classList.remove('hidden');
+  static showElement(...elementsToDisplay) {
+    elementsToDisplay.forEach((element) => {
+      element.classList.remove('hidden');
+    });
   }
 
-  static hideOverlay() {
-    overlay.classList.add('hidden');
-  }
-
-  static showAddForm() {
-    addForm.classList.remove('hidden');
-  }
-
-  static hideAddForm() {
-    addForm.classList.add('hidden');
-  }
-
-  static showTodoForm() {
-    todoForm.classList.remove('hidden');
-  }
-
-  static hideTodoForm() {
-    todoForm.classList.add('hidden');
-  }
-
-  static showGroupForm() {
-    groupForm.classList.remove('hidden');
-  }
-
-  static hideGroupForm() {
-    groupForm.classList.add('hidden');
-  }
-
-  static showEditForm() {
-    editForm.classList.remove('hidden');
-  }
-
-  static hideEditForm() {
-    editForm.classList.add('hidden');
-  }
-
-  static showTodoPopup() {
-    todoPopup.classList.remove('hidden');
-  }
-
-  static hideTodoPopup() {
-    todoPopup.classList.add('hidden');
+  static hideElement(...elementsToHide) {
+    elementsToHide.forEach((element) => {
+      element.classList.add('hidden');
+    });
   }
 
   static clearAddTodoOption() {
@@ -394,9 +352,7 @@ class DOM {
     `;
 
     todoContainer.prepend(todoHtml);
-
-    DOM.hideOverlay();
-    DOM.hideAddForm();
+    DOM.hideElement(overlay, addForm);
   }
 
   static renderGroup(groupName) {
