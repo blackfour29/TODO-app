@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODO app</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="overlay hidden"></div>
+
+  <div class="container">
+    <header class="header">
+      <h1 class="header__title">What do you want <span class="significance">TODO</span>?</h1>
+      <button class="add-button"> + </button>
+    </header>
+
+
+    <!-- Add form popup -->
+    <div class="add-form-container hidden">
+      <div class="add-form__header">
+        <p class="add-form__title">Add a new...</p>
+        <i class="fa-solid fa-xmark add-form__close-button"></i>
+      </div>
+
+      <div class="add-form__main">
+        <aside class="add-form__sidebar">
+          <ul class="add-form__add-options"> 
+            <li class="add-form__add-todo-option add-form__selected-option">TODO</li>
+            <li class="add-form__add-group-option">Group</li>
+          </ul>
+        </aside>
+
+        <form action="" method="post" class="add-form__todo">
+          <div class="todo__data">
+            <div class="todo__data-inputs">
+              <input type="text" required name="todo title" class="todo__title-input" placeholder="Todo title" autocomplete="off">
+              <textarea class="todo__description-input" placeholder="Description" name="todo description"></textarea>
+            </div>
+
+            <div class="todo__date-and-priority">
+              <div class="todo__date-container">
+                <p class="todo__deadline">Deadline: </p>
+                <input type="date" name="todo__deadline" id="todo__date-input">
+             </div>
+
+              <div class="todo__priority">
+                <p class="todo__priority-title">Priority: </p>
+                <label class="todo__priority-label">
+                  <input type="radio" name="priority" value="low" class="todo__priority-input todo__priority-input-low" checked>
+                  <span class="todo__priority-level todo__priority-level-low">Low</span>
+                </label>
+                <label class="todo__priority-label">
+                  <input type="radio" name="priority" class="todo__priority-input todo__priority-input-medium" value="medium">
+                  <span class="todo__priority-level todo__priority-level-medium">Medium</span>
+                </label>
+                <label class="todo__priority-label">
+                  <input type="radio" name="priority" class="todo__priority-input todo_priority-input-high" value="high">
+                  <span class="todo__priority-level todo__priority-level-high">High</span>
+                </label>
+
+              </div>
+
+              <div class="todo__group-selection">
+                <label for="todo__group-options" class="todo__group-options-label">Choose a group:</label>
+                <select name="todo group options" id="todo__group-options">
+                  <option value="First Group">First Group</option>
+                </select>
+              </div>
+            </div>
+
+            <input type="submit" value="Add todo" class="todo__add-todo-button">
+
+
+
+          </div>
+        </form>
+
+        <form action="" method="post" class="add-form__group hidden">
+          <input type="text" required name="group name" class="group__name-input" placeholder="Group name" autocomplete="off"> 
+          <p class="group__remaining-characters">Remaining characters: <span class="group__remaining-characters-value">50</span> </p>
+          <input type="submit" value="Create new group" class="group__create-group-button">
+        </form>
+      </div>   
+    </div>
+
+    <!-- edit todo popup -->
+    <form action="" method="post" class="edit-todo-popup hidden">
+      <i class="fa-solid fa-xmark edit-popup__close-button"></i>
+      <input type="text"  name="edit todo title" class="edit-popup__title-input" placeholder="Todo title" autocomplete="off">
+      <textarea class="edit-popup__description-input" placeholder="Description" name="todo description"></textarea>
+
+      <div class="edit-popup__date-and-priority">
+        <div class="edit-popup__date-container">
+          <p class="edit-popup__deadline">Deadline: </p>
+          <input type="date" name="edit-popup__deadline" id="edit-popup__date-input">
+        </div>
+      </div>
+
+      <div class="edit-popup__priority">
+        <p class="edit-popup__priority-title">Priority: </p>
+        <label class="edit-popup__priority-label">
+          <input type="radio" name="edit-priority" value="low" class="edit-popup__priority-input edit-popup__priority-input-low">
+          <span class="edit-popup__priority-level edit-popup__priority-level-low">Low</span>
+        </label>
+        <label class="edit-popup__priority-label">
+          <input type="radio" name="edit-priority" class="edit-popup__priority-input edit-popup__priority-input-medium" value="medium">
+          <span class="edit-popup__priority-level edit-popup__priority-level-medium">Medium</span>
+        </label>
+        <label class="edit-popup__priority-label">
+          <input type="radio" name="edit-priority" class="edit-popup__priority-input edit-popup__priority-input-high" value="high">
+          <span class="edit-popup__priority-level edit-popup__priority-level-high">High</span>
+        </label>
+      </div>
+      
+      <input type="submit" value="Save changes" class="edit-popup__save-button">
+    </form>
+
+    <div class="todo-popup-container hidden">
+      <i class="fa-solid fa-xmark todo-popup__close-button"></i>
+      <h1 class="todo-popup__title"></h1> <!--Content will be added from JS -->
+      <div class="todo-popup__description-container">
+        <p class="todo-popup__description"></p> <!--Content will be added from JS -->
+      </div>
+      <div class="todo-popup__priority-container">
+        <p class="todo-popup__priority-label">Priority: </p>
+        <p class="todo-popup__priority">Low</p>
+      </div>
+      <div class="todo-popup__deadline-container">
+        <p class="todo-popup__deadline-label">Deadline: </p>
+        <p class="todo-popup__deadline"></p> <!--Content will be added from JS -->
+      </div>
+      <div class="todo-popup__group-container">
+        <p class="todo-popup__group-label">Group: </p>
+        <p class="todo-popup__group"></p> <!--Content will be added from JS -->
+      </div>
+
+    </div>
+
+    <main class="main">
+      <aside class="sidebar">
+        <ul class="sidebar__time-options">
+          <li class="sidebar__time-option sidebar__today-option">Today</li>
+          <li class="sidebar__time-option sidebar__this-week-option">Next 7 days</li>
+          <li class="sidebar__time-option sidebar__this-month-option">Current month</li>
+          <li class="sidebar__time-option sidebar__all-option sidebar-selected-option">All</li>
+        </ul>
+        <section class="sidebar__groups">
+          <h1 class="groups__title">Your groups</h1>
+          <ul class="groups">
+            <li class="group">Main </i>
+            </li>
+          </ul>
+        </section>
+
+      </aside>
+
+      <div class="todo-container">
+        <!-- <div class="todo">
+          <input type="checkbox" class="todo__checkbox">
+          <p class="todo__title">Do something with this piece of information</p>
+          <button class="todo__details-button">Details</button>
+          <p class="todo__date">Dec 12th</p>
+          <i class="fa-solid fa-pen-to-square todo__edit-button"></i>
+          <i class="fa-solid fa-trash-can todo__delete-button"></i>
+        </div>
+
+        <div class="todo">
+          <input type="checkbox" class="todo__checkbox">
+          <p class="todo__title">Do something with this piece of information</p>
+          <button class="todo__details-button">Details</button>
+          <p class="todo__date">Dec 12th</p>
+          <i class="fa-solid fa-pen-to-square todo__edit-button"></i>
+          <i class="fa-solid fa-trash-can todo__delete-button"></i>
+        </div> -->
+      </div>
+
+    </main>
+
+
+  </div>
+
+  <script type="module" src="index.js"></script>
+</body>
+
+</html>
